@@ -1,0 +1,40 @@
+npm install react-hot-toast
+app/layout.js
+import "./globals.css";
+import { Toaster } from "react-hot-toast";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <Toaster position="top-right" />
+        {children}
+      </body>
+    </html>
+  );
+}
+app/page.js
+"use client";
+import toast from "react-hot-toast";
+
+export default function HomePage() {
+  const showSuccess = () => {
+    toast.success("User created successfully!");
+  };
+
+  const showError = () => {
+    toast.error("Something went wrong!");
+  };
+
+  return (
+    <div className="p-6">
+      <button onClick={showSuccess} className="bg-green-600 text-white px-4 py-2">
+        Show Success
+      </button>
+
+      <button onClick={showError} className="bg-red-600 text-white px-4 py-2 ml-3">
+        Show Error
+      </button>
+    </div>
+  );
+}
