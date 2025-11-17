@@ -1,0 +1,52 @@
+your-portfolio/
+│
+├── app/
+│   ├── layout.js
+│   ├── page.js                 → Home page
+│   │
+│   ├── about/
+│   │   └── page.js             → About page
+│   │
+│   ├── projects/
+│   │   └── page.js             → All project list page
+│   │
+│   ├── projects/
+│   │   ├── [slug]/
+│   │   │   └── page.js         → Dynamic project details
+│   │
+│   ├── contact/
+│   │   └── page.js             → Contact form
+│   │
+│   ├── api/
+│   │   └── contact/
+│   │       └── route.js        → Contact form email/API handler
+│   │
+│   └── globals.css
+│
+├── components/
+│   ├── Navbar.jsx
+│   ├── Footer.jsx
+│   ├── HeroSection.jsx
+│   ├── ProjectCard.jsx
+│   ├── ContactForm.jsx
+│   └── UI/                     → Buttons, Inputs, etc
+│
+├── lib/
+│   ├── projects.js             → Project data (title, desc, slug, stack)
+│   └── utils.js                → Helper functions
+│
+├── public/
+│   ├── images/
+│   │   ├── profile.jpg
+│   │   ├── projects/
+│   │   │   └── project1.png
+│   └── favicon.ico
+│
+├── styles/
+│   └── animations.css          → Custom animations
+│
+├── next.config.js
+├── tailwind.config.js
+├── postcss.config.js
+├── package.json
+└── README.md
