@@ -1,3 +1,4 @@
+Process-1
 npm install react-hot-toast
 app/layout.js
 import "./globals.css";
@@ -38,3 +39,91 @@ export default function HomePage() {
     </div>
   );
 }
+
+Process-2
+✅ Step 1: react-hot-toast Install
+npm install react-hot-toast
+
+✅ Step 2: Toaster যোগ করুন (App Root এ)
+✅ App Router (Next.js 13+ / 14 / 15 / 16)
+
+app/layout.tsx অথবা layout.jsx
+
+import { Toaster } from "react-hot-toast";
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <Toaster position="top-right" />
+      </body>
+    </html>
+  );
+}
+
+✅ Step 3: Fetch Code Update করুন
+import toast from "react-hot-toast";
+
+const submitForm = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/admission`, {
+      method: "POST",
+      body: form,
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      // ❌ API error (4xx / 5xx)
+      toast.error(data.message || "Something went wrong");
+      return;
+    }
+
+    // ✅ Success
+    toast.success(data.message || "Form submitted successfully");
+  } catch (error) {
+    // ❌ Network / Server error
+    toast.error("Server error. Please try again.");
+  }
+};
+
+✅ Bonus: Loading Toast (Professional UX ⭐)
+const submitForm = async () => {
+  const toastId = toast.loading("Submitting...");
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/admission`, {
+      method: "POST",
+      body: form,
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.message || "Failed", { id: toastId });
+      return;
+    }
+
+    toast.success(data.message || "Success!", { id: toastId });
+  } catch (error) {
+    toast.error("Server not responding", { id: toastId });
+  }
+};
+
+✅ Laravel API Response Best Practice (Must)
+
+Laravel থেকে response এমন হলে সবচেয়ে ভালো কাজ করে 👇
+
+return response()->json([
+    'success' => true,
+    'message' => 'Admission submitted successfully'
+], 200);
+
+
+❌ Error response:
+
+return response()->json([
+    'success' => false,
+    'message' => 'Validation failed'
+], 422);
