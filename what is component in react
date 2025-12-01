@@ -1,0 +1,49 @@
+In React, component হলো React অ্যাপের সবচেয়ে ছোট reusable UI ব্লক। এটা একটা function বা class হতে পারে যা UI (User Interface) কেমন দেখাবে তা নির্ধারণ করে।
+React Component কী?
+একবার লিখে বারবার ব্যবহার করা যায় এমন UI অংশকেই Component বলা হয়।
+1️⃣ Functional Component (সবচেয়ে বেশি ব্যবহৃত)
+
+এটা একটা সাধারণ JavaScript function যা JSX রিটার্ন করে।
+function Hello() {
+  return <h1>Hello, React!</h1>;
+}
+
+export default Hello;
+Component কিভাবে কাজ করে?
+
+React component সাধারণত তিনটি জিনিস নিয়ে কাজ করে:
+
+1. Props
+
+এক Component থেকে অন্য component-এ data পাঠাতে ব্যবহৃত হয়।
+function Welcome(props) {
+  return <h2>Hello, {props.name}</h2>;
+}
+2. State
+
+Component-এর internal data, যেটা পরিবর্তন হলে UI আপডেট হয়।
+const [count, setCount] = useState(0);
+3. JSX
+
+JavaScript + HTML এর মিশ্র সিনট্যাক্স। Component JSX রিটার্ন করে।
+উদাহরণ: একটি Component App-এ ব্যবহার করা
+function Button() {
+  return <button>Click Me</button>;
+}
+
+export default function App() {
+  return (
+    <div>
+      <h1>My First React App</h1>
+      <Button />
+      <Button />
+    </div>
+  );
+}
+সংক্ষেপে
+বিষয়	ব্যাখ্যা
+Component	Reusable UI block
+Props	Parent → child data
+State	Component-এর internal data
+JSX	UI structure লিখার syntax
+Functional Component	আধুনিক React কম্পোনেন্ট
