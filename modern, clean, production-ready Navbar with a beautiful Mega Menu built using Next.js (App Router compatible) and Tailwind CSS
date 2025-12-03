@@ -1,0 +1,140 @@
+✅ Smooth hover
+✅ Responsive
+✅ Elegant UI
+✅ Easy to customize
+
+✅ Features
+
+Sticky navbar
+Mega dropdown (3-column)
+Smooth animations
+Mobile menu
+Clean & professional UI
+
+📁 File: components/Navbar.jsx
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { ChevronDown, Menu, X } from "lucide-react";
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const [megaOpen, setMegaOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          
+          {/* Logo */}
+          <Link href="/" className="text-2xl font-bold text-primary">
+            MyBrand
+          </Link>
+
+          {/* Desktop Menu */}
+          <nav className="hidden lg:flex items-center gap-8">
+            <Link href="/" className="nav-link">Home</Link>
+
+            {/* Mega Menu */}
+            <div
+              onMouseEnter={() => setMegaOpen(true)}
+              onMouseLeave={() => setMegaOpen(false)}
+              className="relative"
+            >
+              <button className="flex items-center gap-1 nav-link">
+                Services <ChevronDown size={16} />
+              </button>
+
+              {megaOpen && (
+                <div className="absolute top-10 left-0 w-[700px] bg-white shadow-xl border rounded-xl p-6 grid grid-cols-3 gap-6">
+                  
+                  {/* Column 1 */}
+                  <div>
+                    <h4 className="font-semibold mb-3">Development</h4>
+                    <MegaItem title="Web Development" />
+                    <MegaItem title="Next.js Apps" />
+                    <MegaItem title="API Integration" />
+                  </div>
+
+                  {/* Column 2 */}
+                  <div>
+                    <h4 className="font-semibold mb-3">Design</h4>
+                    <MegaItem title="UI/UX Design" />
+                    <MegaItem title="Landing Pages" />
+                    <MegaItem title="Dashboard UI" />
+                  </div>
+
+                  {/* Column 3 */}
+                  <div className="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl p-4">
+                    <h4 className="font-semibold mb-2">Need Custom Project?</h4>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      We build modern & scalable solutions.
+                    </p>
+                    <Link
+                      href="/contact"
+                      className="inline-block text-sm font-medium text-white bg-primary px-4 py-2 rounded-lg hover:opacity-90"
+                    >
+                      Contact Us
+                    </Link>
+                  </div>
+
+                </div>
+              )}
+            </div>
+
+            <Link href="/about" className="nav-link">About</Link>
+            <Link href="/contact" className="nav-link">Contact</Link>
+          </nav>
+
+          {/* Mobile Button */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="lg:hidden"
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {open && (
+        <div className="lg:hidden border-t bg-white">
+          <div className="px-4 py-4 space-y-3">
+            <Link href="/" className="block nav-link">Home</Link>
+            <Link href="/services" className="block nav-link">Services</Link>
+            <Link href="/about" className="block nav-link">About</Link>
+            <Link href="/contact" className="block nav-link">Contact</Link>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+}
+
+/* Mega Item Component */
+const MegaItem = ({ title }) => (
+  <Link
+    href="#"
+    className="block text-sm text-muted-foreground hover:text-primary transition mb-2"
+  >
+    {title}
+  </Link>
+);
+
+🎨 Add These Tailwind Utilities
+
+Add this to your globals.css
+
+.nav-link {
+  @apply text-sm font-medium text-gray-700 hover:text-primary transition;
+}
+
+✅ Uses
+✅ Next.js App Router
+✅ Tailwind CSS
+✅ Lucide Icons (npm i lucide-react)
+✅ Clean hover mega menu
+✅ Fully responsive
+
+🔥 Want More?
