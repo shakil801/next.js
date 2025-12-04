@@ -2,6 +2,7 @@
 npm install next-auth
 #Create API route
 app/api/auth/[...nextauth]/route.js
+#route.js
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
