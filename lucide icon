@@ -15,3 +15,85 @@ export default function App() {
 If you use Tailwind, you can style icons like any other element:
 
 <Home className="w-6 h-6 text-red-500" />
+
+Lucide React, here’s a list of popular and useful icons you might need for different UI purposes:
+
+1️⃣ Navigation / Layout
+
+Home – Homepage
+
+Menu – Hamburger menu
+
+ChevronLeft / ChevronRight – Pagination / sliders
+
+ArrowLeft / ArrowRight – Back/forward navigation
+
+Grid – Dashboard view
+
+List – List view
+
+2️⃣ User / Profile
+
+User – Profile
+
+Users – Multiple users / team
+
+UserPlus – Add user
+
+UserCheck – Verified user
+
+LogIn / LogOut – Authentication
+
+3️⃣ Actions
+
+Edit – Edit / update
+
+Trash – Delete
+
+Plus – Add / create
+
+Check – Success / confirmation
+
+X – Close / cancel
+
+RefreshCw – Refresh / reload
+
+4️⃣ Communication / Feedback
+
+MessageCircle – Chat / comments
+
+Mail – Email
+
+Bell – Notification
+
+AlertCircle – Error / warning
+
+Info – Info message
+
+CheckCircle – Success notification
+
+5️⃣ Media / Files
+
+Camera – Photos / camera
+
+Image – Image placeholder
+
+File – Document / file
+
+Folder – Folder
+
+Download / Upload – File actions
+
+Video – Video content
+
+6️⃣ E-commerce / Payment
+
+ShoppingCart – Cart
+
+CreditCard – Payment
+
+Tag – Product tag / discount
+
+DollarSign – Pricing
+
+Heart – Wishlist / favorites
