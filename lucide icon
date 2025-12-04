@@ -1,2 +1,17 @@
 ✅ 1️⃣ Lucide React install
 npm install lucide-react
+2️⃣ Import and use icons in your React component
+import { Home, User } from "lucide-react";
+export default function App() {
+  return (
+    <div className="flex gap-4">
+      <Home size={24} color="blue" />
+      <User size={24} color="green" />
+    </div>
+  );
+}
+3️⃣ Optional: Using with Tailwind CSS
+
+If you use Tailwind, you can style icons like any other element:
+
+<Home className="w-6 h-6 text-red-500" />
