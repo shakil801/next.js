@@ -88,3 +88,31 @@ export default function HomePage() {
     </div>
   );
 }
+
+
+6️⃣ Optional: TypeScript Support
+
+If using TypeScript, define RootState and AppDispatch for type safety:
+
+// store/index.ts
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+
+Then in components:
+
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState, AppDispatch } from '../store';
+
+const count = useSelector((state: RootState) => state.counter.value);
+const dispatch = useDispatch<AppDispatch>();
+
+✅ Summary
+
+Create Redux store & slices in store/.
+
+Wrap Provider in app/layout.js.
+
+Mark any component using Redux as 'use client'.
+
+Use useSelector & useDispatch inside client components.
