@@ -122,3 +122,6 @@ export async function submitContactForm(formData) {
   return { status: "success", message: "Form submitted successfully!" };
 }
 
+
+#Form submit using API/Laravel
+
