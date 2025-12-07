@@ -1,0 +1,98 @@
+সবচেয়ে বেশি ব্যবহৃত React Hooks
+1️⃣ useState – State ব্যবহারের জন্য
+
+Component-এর data (state) সংরক্ষণ করতে ব্যবহার হয়।
+
+const [count, setCount] = useState(0);
+
+
+ব্যাখ্যা:
+count = বর্তমান value
+setCount = value পরিবর্তনের function
+
+2️⃣ useEffect – Lifecycle এর জন্য
+
+API call, data fetch, DOM effect ইত্যাদিতে ব্যবহার হয়।
+
+useEffect(() => {
+  console.log("Component Loaded");
+}, []);
+
+
+কখন ব্যবহার করো?
+
+API call
+
+component load হলে কিছু করা
+
+dependency পরিবর্তন হলে action নেওয়া
+
+3️⃣ useContext – Props drilling এড়াতে
+
+বারবার props পাঠানো ছাড়া global data ব্যবহার করতে।
+
+const user = useContext(UserContext);
+
+4️⃣ useRef – DOM বা value ধরে রাখতে
+
+Re-render ছাড়াই value মনে রাখতে।
+
+const inputRef = useRef(null);
+
+
+ব্যবহার:
+
+input focus
+
+previous value রাখা
+
+5️⃣ useMemo – Performance optimize
+
+Heavy calculation বারবার না চালাতে।
+
+const result = useMemo(() => calc(num), [num]);
+
+6️⃣ useCallback – Function memoize
+
+Same function বারবার recreate হওয়া আটকাতে।
+
+const handleClick = useCallback(() => {
+  setCount(c => c + 1);
+}, []);
+
+Custom Hook কী?
+
+নিজের বানানো Hook → logic reuse করার জন্য।
+
+function useCounter() {
+  const [count, setCount] = useState(0);
+  return { count, setCount };
+}
+
+
+📌 নিয়ম: Hook এর নাম অবশ্যই use দিয়ে শুরু হবে
+
+Next.js-এ Hook ব্যবহার
+
+Next.js React এর উপর ভিত্তি করে, তাই সব React hook ব্যবহার করা যায়।
+
+⚠️ App Router (Next 13+) এ গুরুত্বপূর্ণ নিয়ম
+
+"use client";
+
+
+এই লাইন না দিলে:
+
+useState
+
+useEffect
+
+useContext
+
+❌ কাজ করবে না
+
+Hook ব্যবহারের নিয়ম (Must Follow)
+
+❌ loop এর ভিতরে Hook নয়
+❌ if condition এর ভিতরে Hook নয়
+✅ component এর top level-এ লিখতে হবে
