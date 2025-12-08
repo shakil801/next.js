@@ -1,0 +1,129 @@
+✅ Features
+
+Beautiful gradient + glass cards
+
+Smooth count-up animation (no library)
+
+Responsive (mobile → desktop)
+
+Lucide icons (optional)
+
+Works in Next.js App Router
+
+1️⃣ Counter Section Component
+
+📁 components/CounterSection.tsx
+
+"use client";
+
+import { useEffect, useState } from "react";
+import { Users, Briefcase, Award, Smile } from "lucide-react";
+
+const counters = [
+  {
+    title: "Happy Clients",
+    value: 1200,
+    icon: Smile,
+  },
+  {
+    title: "Projects Completed",
+    value: 350,
+    icon: Briefcase,
+  },
+  {
+    title: "Team Members",
+    value: 25,
+    icon: Users,
+  },
+  {
+    title: "Awards Won",
+    value: 18,
+    icon: Award,
+  },
+];
+
+function Counter({ value }: { value: number }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const duration = 2000;
+    const increment = value / (duration / 16);
+
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= value) {
+        setCount(value);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [value]);
+
+  return <span>{count}</span>;
+}
+
+export default function CounterSection() {
+  return (
+    <section className="relative py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.15),transparent)]" />
+
+      <div className="relative max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {counters.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={i}
+                className="group rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 text-center shadow-xl transition hover:-translate-y-2 hover:shadow-2xl"
+              >
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-600/20 text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition">
+                  <Icon size={28} />
+                </div>
+
+                <h3 className="text-4xl font-bold">
+                  <Counter value={item.value} />
+                  <span className="text-blue-500">+</span>
+                </h3>
+
+                <p className="mt-2 text-sm text-slate-300">
+                  {item.title}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+2️⃣ Use It in Your Page
+
+📁 app/page.tsx or any page
+
+import CounterSection from "@/components/CounterSection";
+
+export default function HomePage() {
+  return (
+    <>
+      <CounterSection />
+    </>
+  );
+}
+
+3️⃣ Install Icon Package (If Not Installed)
+npm install lucide-react
+
+🎨 Result Look
+
+Dark luxury background
+
+Glassmorphism cards
+
+Smooth animated numbers
+
+Perfect for portfolio / SaaS / agency website
