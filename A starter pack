@@ -1,3 +1,5 @@
 #install next-js
 npx create-next-app@latest
 #project setup
+cd project-name
+http://127.0.0.1:3000
