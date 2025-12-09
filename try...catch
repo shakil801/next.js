@@ -1,0 +1,124 @@
+✅ 1. Client Component-এ try...catch (API call / event handler)
+
+👉 onClick, onSubmit, useEffect–এর ভেতরে সবচেয়ে বেশি ব্যবহার হয়।
+
+  "use client";
+
+import { useState } from "react";
+
+export default function LoginPage() {
+  const [error, setError] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+      });
+
+      if (!res.ok) {
+        throw new Error("Login failed");
+      }
+
+      const data = await res.json();
+      console.log(data);
+    } catch (err: any) {
+      setError(err.message);
+      console.error("Error:", err);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={handleLogin}>Login</button>
+      {error && <p className="text-red-500">{error}</p>}
+    </div>
+  );
+}
+
+✅ এখানে try = সফল কোড
+❌ catch = error handle + UI-তে দেখানো
+
+✅ 2. Server Component-এ try...catch (data fetching)
+
+👉 Next.js 13+ এ Server Component default
+
+export default async function ProductsPage() {
+  try {
+    const res = await fetch("https://dummyjson.com/products");
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch products");
+    }
+
+    const data = await res.json();
+
+    return (
+      <ul>
+        {data.products.map((p: any) => (
+          <li key={p.id}>{p.title}</li>
+        ))}
+      </ul>
+    );
+  } catch (error) {
+    return <p className="text-red-500">Something went wrong</p>;
+  }
+}
+
+
+✅ Server-side error হলেও page break না হবে
+
+✅ 3. API Route-এ try...catch (Most Important ✅)
+
+👉 Next.js API / Route Handler-এ এটা must use
+
+// app/api/products/route.ts
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  try {
+    const products = [
+      { id: 1, name: "Laptop" },
+      { id: 2, name: "Mobile" },
+    ];
+
+    return NextResponse.json(products);
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Server error" },
+      { status: 500 }
+    );
+  }
+}
+
+
+📌 Production-এ error leak বন্ধ করে
+
+✅ 4. Form Submit handling (real use case)
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
+
+  try {
+    await fetch("/api/order", { method: "POST" });
+    alert("Order placed");
+  } catch {
+    alert("Order failed");
+  }
+};
+
+✅ 5. Common Mistakes (এগুলো করো না ❌)
+
+❌ try...catch ছাড়া async/await
+❌ error না throw করা
+❌ শুধু console.log করে UI-তে না দেখানো
+
+✅ Best Practice (Pro tip ✅)
+try {
+  // risky code
+} catch (error) {
+  if (error instanceof Error) {
+    console.log(error.message);
+  }
+}
+
+
+✅ TypeScript-এ safest way
