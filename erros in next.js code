@@ -1,1 +1,71 @@
+Export authOptions doesn't exist in target module
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+Why this happens
+
+In Next.js App Router, your route.js (or route.ts) exports handlers, not named exports by default.
+
+So unless you explicitly export authOptions, this import will always fail.
+✅ CORRECT STRUCTURE (Best Practice)
+✅ 1️⃣ Create authOptions AND export it
+
+📁 app/api/auth/[...nextauth]/route.js
+
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+
+export const authOptions = {
+  providers: [
+    CredentialsProvider({
+      name: "Laravel Auth",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/login`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(credentials),
+          }
+        );
+
+        const data = await res.json();
+
+        if (res.ok && data.user) {
+          return data.user; // ✅ must return user object
+        }
+
+        return null;
+      },
+    }),
+  ],
+
+  session: {
+    strategy: "jwt",
+  },
+
+  pages: {
+    signIn: "/login",
+  },
+
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.user = token.user;
+      return session;
+    },
+  },
+};
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
 
