@@ -71,3 +71,7 @@ export { handler as GET, handler as POST };
 
 #error no: 2
 Cannot read properties of undefined (reading 'map')
+
+
+#error no: 3
+Error: categories?.slice is not a function
