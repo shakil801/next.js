@@ -75,3 +75,22 @@ Cannot read properties of undefined (reading 'map')
 
 #error no: 3
 Error: categories?.slice is not a function
+
+#error no: 4
+Runtime TypeError
+Server
+
+
+fetch failed
+app\posts\page.jsx (43:15) @ getPosts
+
+
+  41 | import Link from "next/link";
+  42 | async function getPosts() {
+> 43 |   const res = await fetch("http://127.0.0.1:8000/api/posts", {
+     |               ^
+  44 |     cache: "no-store"
+  45 |   });
+  46 |
+Error desc: when data fetch from server backend but server is not run 
+Solution: run laravel server by php artisan serve
