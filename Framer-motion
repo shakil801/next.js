@@ -1,0 +1,118 @@
+How to use it in your portfolio (Next.js)
+
+Make sure Framer Motion is installed:
+
+npm install framer-motion
+
+
+Import and place the component anywhere:
+
+import ClientReviews from "@/components/ClientReviews";
+
+export default function Home() {
+  return (
+    <>
+      {/* other sections */}
+      <ClientReviews />
+    </>
+  );
+}
+
+What this gives you
+
+✅ Smooth scroll-based animations
+
+✅ Responsive 3-column layout
+
+✅ Modern card UI (Tailwind)
+
+✅ Easy to replace with real client data
+
+✅ Dark mode friendly
+
+If you want, I can:
+
+Add auto-sliding testimonials
+
+Connect it to real data (API / CMS)
+
+Add client photos & company logos
+
+Match it exactly with your existing portfolio design
+
+// ClientReviews.jsx
+"use client";
+
+import { motion } from "framer-motion";
+import { Star } from "lucide-react";
+
+const reviews = [
+  {
+    id: 1,
+    name: "John Doe",
+    role: "Startup Founder",
+    review:
+      "Amazing work! The portfolio design was clean, fast, and very professional. Highly recommended.",
+    rating: 5,
+  },
+  {
+    id: 2,
+    name: "Sarah Ahmed",
+    role: "Business Owner",
+    review:
+      "Great communication and on-time delivery. The UI/UX quality exceeded my expectations.",
+    rating: 4,
+  },
+  {
+    id: 3,
+    name: "Michael Lee",
+    role: "Product Manager",
+    review:
+      "Very skilled developer. My website performance and SEO improved a lot after his work.",
+    rating: 5,
+  },
+];
+
+export default function ClientReviews() {
+  return (
+    <section className="max-w-6xl mx-auto px-6 py-20">
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="text-3xl md:text-4xl font-bold text-center mb-12"
+      >
+        What Clients Say
+      </motion.h2>
+
+      <div className="grid gap-8 md:grid-cols-3">
+        {reviews.map((item, index) => (
+          <motion.div
+            key={item.id}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.15 }}
+            viewport={{ once: true }}
+            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg"
+          >
+            <div className="flex items-center gap-1 mb-4">
+              {[...Array(item.rating)].map((_, i) => (
+                <Star key={i} className="w-5 h-5 fill-current text-yellow-400" />
+              ))}
+            </div>
+
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
+              “{item.review}”
+            </p>
+
+            <div>
+              <h4 className="font-semibold text-lg">{item.name}</h4>
+              <span className="text-sm text-gray-500">{item.role}</span>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
