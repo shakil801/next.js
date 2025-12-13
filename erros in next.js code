@@ -94,3 +94,34 @@ app\posts\page.jsx (43:15) @ getPosts
   46 |
 Error desc: when data fetch from server backend but server is not run 
 Solution: run laravel server by php artisan serve
+
+#error no: 5
+params is a Promise and must be unwrapped with await or React.use()
+মানে হলো:
+
+নতুন Next.js-এ params আর simple object না,
+এটা এখন Promise।
+
+তাই সরাসরি
+
+params.id
+
+
+লিখলে error হবে ❌
+
+✅ সঠিক সমাধান (RECOMMENDED)
+👉 params কে await করতে হবে
+✔️ Correct Code
+// app/chapter/[id]/page.jsx
+export default async function ChapterPage({ params }) {
+  const { id } = await params;
+
+  return (
+    <h1 className="text-4xl m-20">
+      Chapter ID: {id}
+    </h1>
+  );
+}
+
+
+✔️ এটাই এখন official correct way
