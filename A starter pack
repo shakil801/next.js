@@ -9,4 +9,4 @@ npm install lucide-react
 npm install react-hot-toast
 npm install axios
 npm install nextauth
-
+npm install framer-motion
