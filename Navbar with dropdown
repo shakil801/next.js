@@ -158,3 +158,134 @@ export default function Navbar() {
     </nav>
   );
 }
+
+
+
+proper Next.js Client Component Navbar with dropdown icon, using "use client" and React state (recommended for accessibility + mobile support).
+
+✅ Next.js Client Component Navbar (Dropdown with Icon)
+Navbar.jsx / Navbar.tsx
+"use client";
+
+import Link from "next/link";
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <nav className="bg-white dark:bg-gray-900 shadow">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+
+          {/* Logo */}
+          <Link href="/" className="text-2xl font-bold text-blue-600">
+            MyLogo
+          </Link>
+
+          {/* Menu */}
+          <ul className="flex items-center space-x-8 text-gray-700 dark:text-gray-200">
+
+            <li>
+              <Link href="/" className="hover:text-blue-600">
+                Home
+              </Link>
+            </li>
+
+            {/* Dropdown */}
+            <li
+              className="relative"
+              onMouseEnter={() => setOpen(true)}
+              onMouseLeave={() => setOpen(false)}
+            >
+              <button
+                className="flex items-center gap-1 hover:text-blue-600 focus:outline-none"
+              >
+                Services
+                <ChevronDown
+                  size={16}
+                  className={`transition-transform duration-200 ${
+                    open ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Dropdown Menu */}
+              {open && (
+                <ul className="absolute left-0 top-full mt-2 w-44 bg-white dark:bg-gray-800 shadow-lg rounded-md">
+                  <li>
+                    <Link
+                      href="/web-development"
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      Web Development
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/ui-ux"
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      UI / UX Design
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/seo"
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      SEO
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li>
+
+            <li>
+              <Link href="/about" className="hover:text-blue-600">
+                About
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/contact" className="hover:text-blue-600">
+                Contact
+              </Link>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+🔥 Why This Is Better
+
+✅ Client Component ready
+
+✅ Icon rotates based on state
+
+✅ Works with hover + keyboard focus
+
+✅ Easy to convert to click-only dropdown
+
+✅ Mobile-friendly logic
+
+🧠 Pro Tip (Optional)
+
+For mobile, switch to click-only:
+
+onClick={() => setOpen(!open)}
+
+
+If you want, I can now:
+
+📱 Add mobile hamburger menu
+
+♿ Make it fully accessible (ARIA)
+
+🎨 Convert to modern SaaS navbar
+
+Just tell me 🚀
