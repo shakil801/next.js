@@ -49,3 +49,7 @@ Props	Parent → child data
 State	Component-এর internal data
 JSX	UI structure লিখার syntax
 Functional Component	আধুনিক React কম্পোনেন্ট
+
+Client Component: in client component add "use client" 
+
+Server Component: React Component By default Server Component
