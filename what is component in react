@@ -40,6 +40,8 @@ export default function App() {
     </div>
   );
 }
+
+Path: project-directory/components/MyComponent.jsx
 সংক্ষেপে
 বিষয়	ব্যাখ্যা
 Component	Reusable UI block
