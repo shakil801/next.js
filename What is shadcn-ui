@@ -1,0 +1,122 @@
+🔹 shadcn/ui কী?
+
+shadcn/ui হলো একটি modern UI component collection
+যেটা বানানো হয়েছে:
+
+✅ React + Next.js
+
+✅ Tailwind CSS
+
+✅ Radix UI (accessibility focus)
+
+⚠️ গুরুত্বপূর্ণ বিষয়:
+👉 এটা কোনো npm package না
+👉 তুমি component copy করে নিজের project-এ রাখো
+👉 তাই পুরো control তোমার হাতে থাকে
+
+🔹 shadcn/ui কেন ব্যবহার করবে?
+
+✨ সুন্দর & clean UI
+
+♿ Fully accessible (keyboard, screen reader support)
+
+🎨 Tailwind দিয়ে সহজ customization
+
+🚀 Production-ready components
+
+🧩 Button, Modal, Form, Table, Dropdown সব আছে
+
+🔹 Next.js প্রজেক্টে shadcn/ui সেটআপ
+✅ Step 1: Next.js + Tailwind থাকতে হবে
+
+যদি না থাকে:
+
+npx create-next-app@latest my-app
+cd my-app
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+✅ Step 2: shadcn/ui init করো
+npx shadcn@latest init
+
+
+প্রশ্ন আসবে, এইভাবে দাও:
+
+✔ Which style? › Default
+✔ Which color? › Slate
+✔ Where is your global CSS? › app/globals.css
+✔ Use CSS variables? › Yes
+✔ Tailwind config path? › tailwind.config.ts
+✔ Import alias? › @/components
+
+
+এতে করে:
+
+components/ui folder তৈরি হবে
+
+config ফাইল auto setup হবে
+
+🔹 Component ব্যবহার করা (Example)
+✅ Button add করো
+npx shadcn@latest add button
+
+
+এখন ব্যবহার করো:
+
+import { Button } from "@/components/ui/button";
+
+export default function Page() {
+  return (
+    <Button variant="default">
+      ভর্তি ফরম
+    </Button>
+  );
+}
+
+✅ Input Field
+npx shadcn@latest add input
+
+import { Input } from "@/components/ui/input";
+
+<Input placeholder="Student Name" />
+
+🔹 Form বানানো (Admission Form Example)
+npx shadcn@latest add form
+
+<Form {...form}>
+  <FormField
+    control={form.control}
+    name="name"
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>নাম</FormLabel>
+        <FormControl>
+          <Input placeholder="Student Name" {...field} />
+        </FormControl>
+      </FormItem>
+    )}
+  />
+</Form>
+
+🔹 Popular Components
+Component	Command
+Button	add button
+Input	add input
+Card	add card
+Dialog (Modal)	add dialog
+Table	add table
+Select	add select
+Dropdown	add dropdown-menu
+🔹 Customization (Tailwind দিয়ে)
+<Button className="bg-gradient-to-r from-purple-600 to-pink-500">
+  Submit
+</Button>
+
+🔹 কখন shadcn/ui ব্যবহার করবে?
+
+✔ SaaS Dashboard
+✔ Admission / Form System
+✔ Admin Panel
+✔ Portfolio / Production App
+
+❌ ছোট static site হলে দরকার নেই
