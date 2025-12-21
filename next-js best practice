@@ -1,0 +1,57 @@
+1️⃣ process.env.NEXT_PUBLIC_API ব্যবহার করলে
+const response = await axios.get(
+  `${process.env.NEXT_PUBLIC_API}/exam-cateogry/list`,
+  config
+);
+
+
+✔️ এটাই Best Practice (Next.js-এ)
+কারণ:
+
+API base URL আলাদা করে .env ফাইলে রাখা যায়
+
+Production / Development আলাদা করা সহজ
+
+কোড পরিবর্তন না করেই server change করা যায়
+
+উদাহরণ .env.local:
+
+NEXT_PUBLIC_API=http://127.0.0.1:8000/api
+তুমি যেহেতু software engineer + web developer (আগের context অনুযায়ী), তাই এটা জানা জরুরি 👇
+
+Hard-coded URL ব্যবহার করলে সমস্যা:
+
+Production এ গেলে URL change করতে হবে
+
+Code maintain করা কঠিন
+
+Security + flexibility কম
+
+✅ Recommended (Best Practice)
+
+.env.local
+
+NEXT_PUBLIC_API=http://127.0.0.1:8000
+
+
+Code:
+
+const response = await axios.get(
+  `${process.env.NEXT_PUBLIC_API}/our-instructors/list`,
+  config
+);
+
+💡 Bonus Tip (Clean Axios Instance)
+// lib/axios.js
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API,
+});
+
+export default api;
+
+
+Use:
+
+const response = await api.get("/our-instructors/list");
