@@ -1,6 +1,3 @@
-Redux is a JavaScript library designed for managing and centralizing application state. It is widely used with React.Redux provides a predictable state container,
-making it easier to manage complex application states by centralizing them in a single store.
-    
 🚀 Redux কখন ব্যবহার করবেন?
 
 React বা Next.js প্রজেক্টে Redux তখনই ব্যবহার করা উচিত যখন আপনার অ্যাপ্লিকেশনের state management বড়, জটিল অথবা অনেক কম্পোনেন্টের মাঝে শেয়ার করতে হয়।
@@ -186,3 +183,56 @@ Wrap Provider in app/layout.js.
 Mark any component using Redux as 'use client'.
 
 Use useSelector & useDispatch inside client components.
+
+ const res = await dispatch(login({ email, password }));
+      if (res.type === "login/rejected") {
+        setLoginError(true);
+      } 
+এই কোডটা Redux Toolkit (createAsyncThunk) ব্যবহার করে login action dispatch করার একটি উদাহরণ। ধাপে ধাপে বাংলায় বুঝিয়ে দিচ্ছি 👇
+
+const res = await dispatch(login({ email, password }));
+
+
+🔹 এখানে কী হচ্ছে?
+
+login হচ্ছে একটি async thunk action (সাধারণত createAsyncThunk দিয়ে তৈরি)
+
+dispatch(login({ email, password }))
+→ লগইন API কল করা হচ্ছে email এবং password পাঠিয়ে
+
+await ব্যবহার করা হয়েছে, কারণ এটি একটি asynchronous request
+
+res এর মধ্যে action-এর result চলে আসে
+
+if (res.type === "login/rejected") {
+  setLoginError(true);
+}
+
+
+🔹 এখানে কী চেক করা হচ্ছে?
+
+Redux Toolkit এ createAsyncThunk এর ৩টি অবস্থা থাকে:
+
+login/pending → request চলছে
+
+login/fulfilled → request সফল
+
+login/rejected → request ব্যর্থ (ভুল email/password, server error ইত্যাদি)
+
+res.type === "login/rejected"
+→ মানে লগইন ব্যর্থ হয়েছে
+
+setLoginError(true)
+→ React state আপডেট করা হচ্ছে
+→ UI তে error message দেখানোর জন্য (যেমন: "Invalid email or password")
+
+সহজ ভাষায় সারসংক্ষেপ 🧠
+
+👉 ইউজার লগইন করার চেষ্টা করে
+👉 যদি লগইন সফল হয় → কিছুই হবে না
+👉 যদি লগইন ব্যর্থ হয় → setLoginError(true) হয়ে error দেখাবে
+
+উদাহরণ UI ব্যবহার
+{loginError && (
+  <p className="text-red-500">Email অথবা Password ভুল</p>
+)}
