@@ -127,3 +127,98 @@ return response()->json([
     'success' => false,
     'message' => 'Validation failed'
 ], 422);
+
+✅ Updated Code (react-hot-toast সহ)
+"use client";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+
+export default function FreeJoin() {
+  const [value, setValue] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/check-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ value }),
+      });
+
+      const data = await res.json();
+
+      // ✅ Show message in toast
+      if (res.ok) {
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Enter value"
+        className="border p-2"
+      />
+
+      <button type="submit" className="ml-2 bg-blue-500 text-white px-4 py-2">
+        Submit
+      </button>
+    </form>
+  );
+}
+
+✅ Root Layout এ Toaster আছে তো?
+
+react-hot-toast কাজ করতে হলে একবার Toaster যোগ করা থাকতে হবে।
+
+app/layout.js বা _app.js
+import { Toaster } from "react-hot-toast";
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <Toaster position="top-right" />
+      </body>
+    </html>
+  );
+}
+
+🎯 API Response Example (Laravel)
+{
+  "message": "User already exists"
+}
+
+
+বা
+
+{
+  "message": "User not found"
+}
+
+
+➡️ এই message-টাই toast এ দেখাবে।
+
+✨ Bonus (Loading Toast)
+
+আপনি চাইলে loading দেখাতে পারেন:
+
+const toastId = toast.loading("Checking...");
+
+// API call
+
+toast.dismiss(toastId);
+toast.success(data.message);
