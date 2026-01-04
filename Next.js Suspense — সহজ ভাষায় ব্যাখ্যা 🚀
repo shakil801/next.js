@@ -1,0 +1,117 @@
+Suspense মূলত React-এর একটি ফিচার, যেটা Next.js (App Router)-এ খুব শক্তিশালীভাবে ব্যবহার করা হয় loading state handle করার জন্য।
+🔹 Suspense কী?
+
+👉 যখন কোনো component / data load হতে সময় নেয়, তখন Suspense সেই সময়ের জন্য একটি fallback UI (loading spinner / skeleton) দেখায়।
+
+মানে:
+ডেটা আসা পর্যন্ত ইউজারকে খালি স্ক্রিন না দেখিয়ে সুন্দর লোডিং দেখানো।
+🔹 কেন Next.js-এ Suspense দরকার?
+
+Next.js App Router-এ:
+
+Server Components
+
+Streaming
+
+Parallel data fetching
+
+এসবের সাথে Suspense automatically কাজ করে
+🔹 Basic Syntax
+import { Suspense } from "react";
+
+<Suspense fallback={<p>Loading...</p>}>
+  <MyComponent />
+</Suspense>
+
+
+📌 fallback → যতক্ষণ MyComponent লোড হচ্ছে, এটা দেখাবে
+🔹 Next.js (App Router) Example
+📁 app/page.jsx
+import { Suspense } from "react";
+import Users from "./Users";
+
+export default function Page() {
+  return (
+    <div>
+      <h1>User List</h1>
+
+      <Suspense fallback={<p>Loading users...</p>}>
+        <Users />
+      </Suspense>
+    </div>
+  );
+}
+
+📁 app/Users.jsx (Server Component)
+async function getUsers() {
+  await new Promise((r) => setTimeout(r, 2000)); // fake delay
+  return ["Rahim", "Karim", "Hasan"];
+}
+
+export default async function Users() {
+  const users = await getUsers();
+
+  return (
+    <ul>
+      {users.map((u) => (
+        <li key={u}>{u}</li>
+      ))}
+    </ul>
+  );
+}
+
+
+🟢 এখানে:
+
+Users load হতে 2 সেকেন্ড লাগছে
+
+সেই সময় Loading users... দেখাবে
+
+🔹 Suspense + Dynamic Component
+import dynamic from "next/dynamic";
+
+const HeavyComponent = dynamic(() => import("./HeavyComponent"), {
+  suspense: true,
+});
+
+<Suspense fallback={<p>Loading heavy part...</p>}>
+  <HeavyComponent />
+</Suspense>
+
+🔹 Suspense vs loading.js (Next.js)
+বিষয়	Suspense	loading.js
+Scope	Component level	Route level
+Control	বেশি	কম
+Streaming	✅	✅
+
+📌 Best Practice:
+
+Page/Route loading → loading.js
+
+Specific component → Suspense
+
+🔹 Multiple Suspense (Advanced)
+<Suspense fallback={<HeaderSkeleton />}>
+  <Header />
+</Suspense>
+
+<Suspense fallback={<PostsSkeleton />}>
+  <Posts />
+</Suspense>
+
+
+👉 Header আগে দেখাবে, Posts পরে আসবে
+
+🔹 Common Use Cases
+
+✅ API data fetching
+✅ Dashboard widgets
+✅ Large components
+✅ Skeleton UI
+
+🔹 Interview Tip 💡
+
+Question: Next.js-এ Suspense কেন powerful?
+Answer:
+
+Suspense allows streaming server rendering and component-level loading states, improving performance and user experience.
